@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // function Fn() {
+      //     console.log(this.clothes);
+      //
+      // }
+      // let o  = {
+      //     clothes:"shirt"
+      // }
+      // 传入一个对象
+      // Fn.call(o)
+      function sum() {
+        console.log(this.a * this.b);
+      }
+      Function.prototype.myCall = function (obj,...args) {
+        console.log(arguments);
+        // 2 、下面sum调用了原型上的myCall方法，此时myCall的this 指向 sum
+        // 3、this 是执行的函数，把函数sum作为方法添加到对象o中
+        console.log(this);
+        obj.fn = this;
+        //4、 执行方法fn ，此时方法fn的this指向o
+        obj.fn(...args);
+        //5、 执行完成后 删除方法
+        delete obj.fn;
+      };
+
+      let obj = {
+        a: 1,
+        b: 1,
+      };
+      //  1 、这里sum调用myCall,myCall的this指向sum
+      sum.myCall(obj);
+    </script>
+  </body>
+</html>
